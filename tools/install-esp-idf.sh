@@ -2,6 +2,8 @@
 
 source ./tools/config.sh
 
+IDF_COMMIT="ac5d805d0e"
+
 if ! [ -x "$(command -v $SED)" ]; then
   	echo "ERROR: $SED is not installed! Please install $SED first."
   	exit 1
