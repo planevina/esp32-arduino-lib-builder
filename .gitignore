@@ -11,6 +11,8 @@ components/espressif__esp-dsp/
 components/esp-insights/
 components/arduino_tinyusb/tinyusb/
 components/tflite-micro/
+components/espressif__esp-dl/
+components/espressif__esp32-camera/
 esp-idf/
 out/
 build/

@@ -68,11 +68,11 @@ while getopts ":A:I:i:c:t:b:D:sde" opt; do
             ;;
         b )
             b=$OPTARG
-            if [ "$b" != "build" ] && 
-               [ "$b" != "menuconfig" ] && 
-               [ "$b" != "reconfigure" ] && 
-               [ "$b" != "idf_libs" ] && 
-               [ "$b" != "copy_bootloader" ] && 
+            if [ "$b" != "build" ] &&
+               [ "$b" != "menuconfig" ] &&
+               [ "$b" != "reconfigure" ] &&
+               [ "$b" != "idf_libs" ] &&
+               [ "$b" != "copy_bootloader" ] &&
                [ "$b" != "mem_variant" ]; then
                 print_help
             fi
@@ -92,6 +92,8 @@ shift $((OPTIND -1))
 CONFIGS=$@
 
 mkdir -p dist
+
+source ./tools/config.sh
 
 if [ $SKIP_ENV -eq 0 ]; then
     echo "* Installing/Updating ESP-IDF and all components..."
@@ -122,7 +124,7 @@ if [ "$BUILD_TYPE" != "all" ]; then
         print_help
     fi
     configs="configs/defconfig.common;configs/defconfig.$TARGET;configs/defconfig.debug_$BUILD_DEBUG"
-    
+
     # Target Features Configs
     for target_json in `jq -c '.targets[]' configs/builds.json`; do
         target=$(echo "$target_json" | jq -c '.target' | tr -d '"')
@@ -276,21 +278,21 @@ fi
 
 # Generate PlatformIO manifest file
 if [ "$BUILD_TYPE" = "all" ]; then
-    python3 ./tools/gen_platformio_manifest.py -o "$TOOLS_JSON_OUT/" -s $(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD) -c $(git -C "$IDF_PATH" rev-parse --short HEAD)
+    python3 ./tools/gen_platformio_manifest.py -o "$TOOLS_JSON_OUT/" -s "$IDF_BRANCH" -c "$IDF_COMMIT"
     if [ $? -ne 0 ]; then exit 1; fi
 fi
 
-# copy everything to arduino-esp32 installation
-if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
-    ./tools/copy-to-arduino.sh
-    if [ $? -ne 0 ]; then exit 1; fi
-fi
+# # copy everything to arduino-esp32 installation
+# if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
+#     ./tools/copy-to-arduino.sh
+#     if [ $? -ne 0 ]; then exit 1; fi
+# fi
 
-# push changes to esp32-arduino-libs and create pull request into arduino-esp32
-if [ $DEPLOY_OUT -eq 1 ]; then
-    ./tools/push-to-arduino.sh
-    if [ $? -ne 0 ]; then exit 1; fi
-fi
+# # push changes to esp32-arduino-libs and create pull request into arduino-esp32
+# if [ $DEPLOY_OUT -eq 1 ]; then
+#     ./tools/push-to-arduino.sh
+#     if [ $? -ne 0 ]; then exit 1; fi
+# fi
 
 # archive the build
 if [ $ARCHIVE_OUT -eq 1 ]; then
