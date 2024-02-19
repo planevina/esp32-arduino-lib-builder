@@ -1,4 +1,4 @@
-name: Manual Build SDK For the Specific Target
+name: Manual Build SDK (v3) For the Specific Target
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ on:
 
 jobs:
   run:
-    name: Build ${{ github.ref_name }} SDK For ${{ github.event.inputs.target }}
+    name: Build ${{ github.ref_name }} SDK (v3) For ${{ github.event.inputs.target }}
 
     runs-on: ubuntu-latest
 
