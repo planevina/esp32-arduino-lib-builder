@@ -3,7 +3,7 @@ name: Manual Build SDK For the Specific Target
 on:
   workflow_dispatch:
     inputs:
-      name:
+      target:
         type: choice
         description: Choose Target
         default: 'all'
@@ -15,10 +15,22 @@ on:
         - 'esp32c3'
         - 'esp32c6'
         - 'esp32h6'
+      log_level:
+        type: choice
+        description: Choose Log Level
+        default: 'default'
+        options:
+        - 'default'
+        - 'none'
+        - 'verbose'
+        - 'debug'
+        - 'info'
+        - 'warning'
+        - 'error'
 
 jobs:
   run:
-    name: Build ${{ github.ref_name }} SDK For ${{ github.event.inputs.name }}
+    name: Build ${{ github.ref_name }} SDK For ${{ github.event.inputs.target }}
 
     runs-on: ubuntu-latest
 
@@ -31,9 +43,10 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          export TARGET_TYPE=${{ github.event.inputs.name }}
-          echo "Building for $TARGET_TYPE"
-          bash ./build.sh -e -t $TARGET_TYPE
+          export TARGET_TYPE=${{ github.event.inputs.target }}
+          export LOG_LEVEL=${{ github.event.inputs.log_level }}
+          echo "Building for $TARGET_TYPE (log_level: $LOG_LEVEL)"
+          bash ./build.sh -e -t $TARGET_TYPE -D $LOG_LEVEL
 
       - name: Upload archive
         uses: actions/upload-artifact@v3
