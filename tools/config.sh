@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export IDF_COMMIT="3662303f31"
-export IDF_BRANCH="release/v5.1"
+export IDF_COMMIT="2600eeaa2aafa335c187c59b3ac33bf183e19077"
+export IDF_BRANCH="feature/increase-ALARM_CBS_NUM"
 
 if [ -z $IDF_PATH ]; then
     export IDF_PATH="$PWD/esp-idf"
@@ -31,7 +31,7 @@ AR_USER="espressif"
 
 # The full name of the repository
 AR_REPO="$AR_USER/arduino-esp32"
-IDF_REPO="$AR_USER/esp-idf"
+IDF_REPO="esp-arduino-libs/esp-idf"
 AR_LIBS_REPO="$AR_USER/esp32-arduino-libs"
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
