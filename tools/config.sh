@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export IDF_COMMIT="2600eeaa2aafa335c187c59b3ac33bf183e19077"
+export IDF_COMMIT="2600eea"
 export IDF_BRANCH="feature/increase-ALARM_CBS_NUM"
 
 if [ -z $IDF_PATH ]; then
