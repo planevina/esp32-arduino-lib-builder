@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export IDF_COMMIT="d922d41"   //2600eea
-export IDF_BRANCH="release/v5.1"  //feature/increase-ALARM_CBS_NUM
+export IDF_COMMIT="d922d41"   # 2600eea
+export IDF_BRANCH="release/v5.1" # feature/increase-ALARM_CBS_NUM
 
 if [ -z $IDF_PATH ]; then
     export IDF_PATH="$PWD/esp-idf"
