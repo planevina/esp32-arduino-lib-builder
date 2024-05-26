@@ -68,11 +68,11 @@ while getopts ":A:I:i:c:t:b:D:sde" opt; do
             ;;
         b )
             b=$OPTARG
-            if [ "$b" != "build" ] && 
-               [ "$b" != "menuconfig" ] && 
-               [ "$b" != "reconfigure" ] && 
-               [ "$b" != "idf-libs" ] && 
-               [ "$b" != "copy-bootloader" ] && 
+            if [ "$b" != "build" ] &&
+               [ "$b" != "menuconfig" ] &&
+               [ "$b" != "reconfigure" ] &&
+               [ "$b" != "idf-libs" ] &&
+               [ "$b" != "copy-bootloader" ] &&
                [ "$b" != "mem-variant" ]; then
                 print_help
             fi
@@ -95,6 +95,8 @@ CONFIGS=$@
 echo "TARGET(s): ${TARGET[@]}"
 
 mkdir -p dist
+
+source ./tools/config.sh
 
 if [ $SKIP_ENV -eq 0 ]; then
     echo "* Installing/Updating ESP-IDF and all components..."
@@ -142,7 +144,7 @@ if [ "$BUILD_TYPE" != "all" ]; then
             # Skip building for targets that are not in the $TARGET array
             continue
         fi
-                
+
         configs="configs/defconfig.common;configs/defconfig.$target;configs/defconfig.debug_$BUILD_DEBUG"
         for defconf in `echo "$target_json" | jq -c '.features[]' | tr -d '"'`; do
             configs="$configs;configs/defconfig.$defconf"
@@ -187,7 +189,7 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
             continue
         fi
     fi
-    
+
     # Skip chips that should not be a part of the final libs
     # WARNING!!! this logic needs to be updated when cron builds are split into jobs
     if [ "$TARGET" = "all" ] && [ $target_skip -eq 1 ]; then
@@ -311,20 +313,21 @@ if [ "$BUILD_TYPE" = "all" ]; then
     ic=$(git -C "$IDF_PATH" rev-parse --short HEAD)
     popd
     python3 ./tools/gen_platformio_manifest.py -o "$TOOLS_JSON_OUT/" -s "$ibr" -c "$ic"
+    # python3 ./tools/gen_platformio_manifest.py -o "$TOOLS_JSON_OUT/" -s "$IDF_BRANCH" -c "$IDF_COMMIT"
     if [ $? -ne 0 ]; then exit 1; fi
 fi
 
-# copy everything to arduino-esp32 installation
-if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
-    ./tools/copy-to-arduino.sh
-    if [ $? -ne 0 ]; then exit 1; fi
-fi
+# # copy everything to arduino-esp32 installation
+# if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
+#     ./tools/copy-to-arduino.sh
+#     if [ $? -ne 0 ]; then exit 1; fi
+# fi
 
-# push changes to esp32-arduino-libs and create pull request into arduino-esp32
-if [ $DEPLOY_OUT -eq 1 ]; then
-    ./tools/push-to-arduino.sh
-    if [ $? -ne 0 ]; then exit 1; fi
-fi
+# # push changes to esp32-arduino-libs and create pull request into arduino-esp32
+# if [ $DEPLOY_OUT -eq 1 ]; then
+#     ./tools/push-to-arduino.sh
+#     if [ $? -ne 0 ]; then exit 1; fi
+# fi
 
 # archive the build
 if [ $ARCHIVE_OUT -eq 1 ]; then
