@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export IDF_COMMIT="dc859c1e67"
+export IDF_BRANCH="release/v5.1"
+export AR_REPO_COMMIT="e850afb1"
+export TINYUSB_REPO_COMMIT="1ba88ff3a"
 
 if [ -z $IDF_PATH ]; then
     export IDF_PATH="$PWD/esp-idf"
@@ -52,10 +56,10 @@ PIO_SDK="FRAMEWORK_SDK_DIR, \"$IDF_TARGET\""
 TOOLS_JSON_OUT="$AR_TOOLS/esp32-arduino-libs"
 IDF_LIBS_DIR="$AR_ROOT/../esp32-arduino-libs"
 
-if [ -d "$IDF_PATH" ]; then
-    export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
-    export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
-fi
+# if [ -d "$IDF_PATH" ]; then
+#     export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
+#     export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
+# fi
 
 function get_os(){
     OSBITS=`uname -m`

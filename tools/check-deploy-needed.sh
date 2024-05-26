@@ -2,7 +2,7 @@
 
 source ./tools/config.sh
 
-IDF_COMMIT=`github_last_commit "$IDF_REPO" "$IDF_BRANCH"`
+# IDF_COMMIT=`github_last_commit "$IDF_REPO" "$IDF_BRANCH"`
 
 if [ -z $GITHUB_HEAD_REF ]; then
 	current_branch=`git branch --show-current`
