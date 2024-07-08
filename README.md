@@ -37,6 +37,7 @@ In comparison to the original [esp32-arduino-lib-builder](https://github.com/esp
 * [release/v2.0.13](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v2.0.13)
 * [release/v3.0.0-alpha3](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.0-alpha3)
 * [release/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.0)
+* [release/v3.0.2](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.2)
 
 ### High Performance Versions
 
@@ -44,6 +45,10 @@ As only v3.x and above versions support the required high-performance configurat
 
 * [high_perf/v3.0.0-alpha3](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.0-alpha3)
 * [high_perf/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.0)
+* [high_perf/v3.0.2](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.2)
+
+> [!TIP]
+> [Precompiled SDKs](https://github.com/esp-arduino-libs/arduino-esp32-sdk?tab=readme-ov-file#for-sdks-suffixed-with--h)
 
 ## How to Use
 
